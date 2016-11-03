@@ -143,4 +143,94 @@ public class BookDAO {
 		return result;
 	}
 
+	public Boolean insert(String isbn, String title, String date, String page, String price, String author,
+			String trans, String sup, String pub, String img) {
+		System.out.println("page: /" + page.trim());
+		if(date.trim() == "") date = "2016-11-03";
+		if(page.trim() == "") page = "300";
+		if(trans.trim() == "") trans = "없음";
+		if(sup.trim() == "") sup = "없음";
+		if(pub.trim() == "") pub = "써니미디어(주)";
+		if(img.trim() == "") img = "";
+		
+		System.out.println("insert 들어옴!");
+		System.out.println(isbn + title + date+ page+ price+ author+ trans+ sup+ pub+ img);
+		Connection con = DBTemplate.getConnection();
+		PreparedStatement pstmt = null;
+		Boolean result = false;
+		try {
+			String sql = "insert into book (bisbn, btitle, bdate, bpage, bprice, bauthor, btranslator, "
+					+ "bsupplement, bpublisher, bimgurl)"
+					+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, isbn);
+			pstmt.setString(2, title);
+			pstmt.setString(3, date);
+			pstmt.setString(4, page);
+			pstmt.setString(5, price);
+			pstmt.setString(6, author);
+			pstmt.setString(7, trans);
+			pstmt.setString(8, sup);
+			pstmt.setString(9, pub);
+			pstmt.setString(10, img);
+			
+
+			int count = pstmt.executeUpdate();
+			if (count == 1) {
+				result = true;
+				// 정상처리이기 때문에 commit
+				DBTemplate.commit(con);				
+
+			} else {
+				DBTemplate.rollback(con);
+				System.out.println("rollback");
+			}
+				
+			System.out.println("insert(): " + result);
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			DBTemplate.close(pstmt);
+			DBTemplate.close(con);
+		}
+		
+		
+		return result;
+	}
+
+	public Boolean delete(String isbn) {
+		
+		Connection con = DBTemplate.getConnection();
+		PreparedStatement pstmt = null;
+		Boolean result = false;
+		try {
+			String sql = "delete from book where bisbn = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, isbn);
+			
+
+			int count = pstmt.executeUpdate();
+			if (count == 1) {
+				result = true;
+				// 정상처리이기 때문에 commit
+				DBTemplate.commit(con);				
+
+			} else {
+				DBTemplate.rollback(con);
+				System.out.println("rollback");
+			}
+				
+			System.out.println("delete(): " + result);
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			DBTemplate.close(pstmt);
+			DBTemplate.close(con);
+		}
+		
+		return result;
+	}
+
 }

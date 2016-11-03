@@ -29,6 +29,19 @@ public class BookService {
 		return result;
 	}
 
+	public Boolean addBook(String isbn, String title, String date, String page, String price, String author,
+			String trans, String sup, String pub, String img) {
+		BookDAO dao = new BookDAO();
+		Boolean result = dao.insert(isbn, title, date, page, price, author, trans, sup, pub, img);
+		return result;
+	}
+
+	public Boolean deleteBook(String isbn) {
+		BookDAO dao = new BookDAO();
+		Boolean result = dao.delete(isbn);
+		return result;
+	}
+
 }
 
 
