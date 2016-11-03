@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.cjon.book.service.BookService;
 
 /**
- * Servlet implementation class BookUpdateServlet
+ * Servlet implementation class BookDetailServlet
  */
-@WebServlet("/bookUpdate")
-public class BookUpdateServlet extends HttpServlet {
+@WebServlet("/bookDetail")
+public class BookDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookUpdateServlet() {
+    public BookDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,20 +30,16 @@ public class BookUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1. 입력받고
-		String isbn = request.getParameter("isbn");
-		String title = request.getParameter("title");
-		String author = request.getParameter("author");
-		String price = request.getParameter("price");
-		String callback = request.getParameter("callback");
-		// 2. 로직처리
-		BookService service = new BookService();
-		String result = service.updateBook(isbn, title, author, price);
 		
-		// 3. 출력처리
+		String isbn = request.getParameter("isbn");
+		String callback =request.getParameter("callback");
+		
+		BookService service = new BookService();
+		String result = service.getBookDetail(isbn);
+		
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();
-		out.println(callback + "(" + result + ")");
+		out.print(callback + "(" + result + ")");
 		out.flush();
 		out.close();
 	}
@@ -57,12 +53,3 @@ public class BookUpdateServlet extends HttpServlet {
 	}
 
 }
-
-
-
-
-
-
-
-
-

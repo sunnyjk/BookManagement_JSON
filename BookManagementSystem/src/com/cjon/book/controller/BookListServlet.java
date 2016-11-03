@@ -30,7 +30,7 @@ public class BookListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doGet!");
+
 		// 1. 입력받고
 		String keyword = request.getParameter("keyword"); // 책에 대한 keyword를 받는부분
 		String callback = request.getParameter("callback"); // JSONP처리를 위해서 사용

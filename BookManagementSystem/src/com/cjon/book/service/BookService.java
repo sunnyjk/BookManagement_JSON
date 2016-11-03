@@ -17,10 +17,15 @@ public class BookService {
 		return result;
 	}
 
-	public boolean updateBook(String isbn, String price) {
-		// TODO Auto-generated method stub
+	public String updateBook(String isbn, String title, String author, String price) {
 		BookDAO dao = new BookDAO();
-		boolean result = dao.update(isbn,price);	
+		String result = dao.update(isbn, title, author, price);	
+		return result;
+	}
+
+	public String getBookDetail(String isbn) {
+		BookDAO dao = new BookDAO();
+		String result = dao.detail(isbn);
 		return result;
 	}
 
