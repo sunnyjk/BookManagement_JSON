@@ -1,0 +1,24 @@
+Server.xml
+ maxParameterCount="50000"  maxHttpHeaderSize="100048576" 
+
+이거 붙여줘야 에러가 안남!
+
+
+<!-- DB -->
+create table user ( seq int auto_increment primary key ,uid VARCHAR(20) UNIQUE, upw VARCHAR(30), uname VARCHAR(30) ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+drop TABLE user;
+
+insert into user(uid, upw, uname) values(?,?,?);
+
+
+https://thenounproject.com/
+
+
+
+
+
+<DB>
+mysql-5.6.34-winx64
+Toad World
