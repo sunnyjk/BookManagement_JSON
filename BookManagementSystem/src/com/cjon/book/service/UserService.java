@@ -9,16 +9,13 @@ public class UserService {
 		return dao.insert(id, pw, name);
 	}
 
-	public Boolean login(String id, String pw) {
+	public boolean login(String id, String pw) {
 
 		UserDAO dao = new UserDAO();
-		String dbpw = dao.login(id);
+		boolean result = dao.login(id,pw);
 		
-		if(pw == dbpw){
-			return true;
-		}
 		
-		return false;
+		return result;
 	}
 
 }

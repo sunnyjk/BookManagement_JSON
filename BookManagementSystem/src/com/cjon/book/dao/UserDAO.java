@@ -46,28 +46,27 @@ public class UserDAO {
 		return result;
 	}
 
-	public String login(String id) {
+	public boolean login(String id, String pw) {
 		
 		Connection con = DBTemplate.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String result = null;
+		boolean result = false;
 		
 		try {
-			String sql = "select uid, upw from user where uid = ?";
+			String sql = "select uid from user where uid = ? and upw=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);		
+			pstmt.setString(1, id);	
+			pstmt.setString(2, pw);	
 			
 			rs = pstmt.executeQuery();
 			
-			if(rs != null){
-				rs.next();
-				result = rs.getString("upw");
+			if(rs.next()){
+				result = true;
 			} else{
-				result = "error";
+				result = false;
 			}
-			
-				
+							
 			System.out.println("loginCheck(): " + result);
 			
 		} catch (Exception e) {

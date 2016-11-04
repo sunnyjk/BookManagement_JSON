@@ -23,7 +23,7 @@ public class BookDAO {
 		ResultSet rs = null;
 		String result = null;
 		try {
-			String sql = "select bisbn, bimgurl, btitle, bauthor, bprice " + "from book where btitle like ?";
+			String sql = "select bisbn, bimgbase64, btitle, bauthor, bprice " + "from book where btitle like ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%" + keyword + "%");
 			rs = pstmt.executeQuery();
@@ -31,7 +31,7 @@ public class BookDAO {
 			while (rs.next()) {
 				JSONObject obj = new JSONObject();
 				obj.put("isbn", rs.getString("bisbn"));
-				obj.put("img", rs.getString("bimgurl"));
+				obj.put("img", rs.getString("bimgbase64"));
 				obj.put("title", rs.getString("btitle"));
 				obj.put("author", rs.getString("bauthor"));
 				obj.put("price", rs.getString("bprice"));
@@ -70,7 +70,7 @@ public class BookDAO {
 				DBTemplate.commit(con);
 
 				System.out.println("count 후 commit!!");
-				String sql2 = "select bisbn, bimgurl, btitle, bauthor, bprice " + "from book where bisbn = ?";
+				String sql2 = "select bisbn, bimgbase64, btitle, bauthor, bprice " + "from book where bisbn = ?";
 				PreparedStatement pstmt2 = con.prepareStatement(sql2);
 				pstmt2.setString(1, isbn);
 				ResultSet rs = pstmt2.executeQuery();
@@ -82,7 +82,7 @@ public class BookDAO {
 
 				JSONObject obj = new JSONObject();
 				obj.put("isbn", rs.getString("bisbn"));
-				obj.put("img", rs.getString("bimgurl"));
+				obj.put("img", rs.getString("bimgbase64"));
 				obj.put("title", rs.getString("btitle"));
 				obj.put("author", rs.getString("bauthor"));
 				obj.put("price", rs.getString("bprice"));
@@ -160,7 +160,7 @@ public class BookDAO {
 		Boolean result = false;
 		try {
 			String sql = "insert into book (bisbn, btitle, bdate, bpage, bprice, bauthor, btranslator, "
-					+ "bsupplement, bpublisher, bimgurl)"
+					+ "bsupplement, bpublisher, bimgbase64)"
 					+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, isbn);
@@ -179,7 +179,8 @@ public class BookDAO {
 			if (count == 1) {
 				result = true;
 				// 정상처리이기 때문에 commit
-				DBTemplate.commit(con);				
+				DBTemplate.commit(con);	
+				System.out.println("Book Added!! : " + title);
 
 			} else {
 				DBTemplate.rollback(con);
