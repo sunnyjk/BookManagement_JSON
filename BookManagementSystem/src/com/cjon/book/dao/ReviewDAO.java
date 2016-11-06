@@ -62,7 +62,7 @@ public class ReviewDAO {
 		
 		try {
 			String sql = "select bisbn, btitle, comments, uid, date from review "
-					+ "where btitle like ?";
+					+ "where comments like ?";
 			
 			
 			pstmt = con.prepareStatement(sql);

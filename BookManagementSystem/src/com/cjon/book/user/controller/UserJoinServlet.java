@@ -1,6 +1,8 @@
 package com.cjon.book.user.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,8 +37,26 @@ public class UserJoinServlet extends HttpServlet {
 		String pw = request.getParameter("pw");
 		String name = request.getParameter("name");
 		
-		UserService service = new UserService();
-		boolean result = service.addUser(id, pw, name);
+		System.out.println("Join Servlet 들어옴!");
+		
+		boolean result = false;
+		
+		if(pw != null && name != null){
+		
+			System.out.println("회원가입 진행하기");
+		/*	UserService service = new UserService();
+			result = service.addUser(id, pw, name);
+		*/
+		} else {
+			System.out.println("UserJoinServlet: dao에 가서 ID값 중복되는지 확인하기");
+			result = true;
+		}
+		
+		response.setContentType("text/plain; charset=utf8");
+		PrintWriter out = response.getWriter();
+		out.println(callback + "(" + result + ")");
+		out.flush();
+		out.close();		
 		
 	}
 
