@@ -1,8 +1,6 @@
 Server.xml
  maxParameterCount="50000"  maxHttpHeaderSize="100048576" 
 
-이거 붙여줘야 에러가 안남!
-
 
 <!-- DB -->
 create table user ( seq int auto_increment primary key ,uid VARCHAR(20) UNIQUE, upw VARCHAR(30), uname VARCHAR(30) ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -11,6 +9,28 @@ create table user ( seq int auto_increment primary key ,uid VARCHAR(20) UNIQUE, 
 drop TABLE user;
 
 insert into user(uid, upw, uname) values(?,?,?);
+
+
+create table book2 (
+seq int auto_increment primary key,
+bisbn VARCHAR(50) unique,
+btitle varchar(200),
+bdate varchar(20),
+bpage int(11),
+bprice int(11),
+bauthor varchar(100),
+btranslator varchar(100),
+bsupplement varchar(100),
+bpublisher varchar(100),
+bimgbase64 mediumtext,
+uid varchar(30)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into book2 (bisbn, btitle, bdate, bpage, bprice, bauthor, btranslator, bsupplement,
+bpublisher, bimgbase64) select bisbn, btitle, bdate, bpage, bprice, bauthor, btranslator, bsupplement,
+bpublisher, bimgbase64 from book;
+
+
 
 
 https://thenounproject.com/
