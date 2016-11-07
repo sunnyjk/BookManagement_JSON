@@ -37,6 +37,8 @@ public class BookDeleteServlet extends HttpServlet {
 		BookService service = new BookService();
 		Boolean result = service.deleteBook(isbn);
 		
+		System.out.println("[Book: Delete Servlet] result: " + result);		
+		
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();
 		out.print(callback + "(" + result + ")");

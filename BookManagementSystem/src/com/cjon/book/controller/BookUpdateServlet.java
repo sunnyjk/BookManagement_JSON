@@ -40,6 +40,8 @@ public class BookUpdateServlet extends HttpServlet {
 		BookService service = new BookService();
 		String result = service.updateBook(isbn, title, author, price);
 		
+		System.out.println("[Book: Update Servlet] result: " + result);		
+		
 		// 3. 출력처리
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();

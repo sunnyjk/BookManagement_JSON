@@ -37,6 +37,8 @@ public class BookDetailServlet extends HttpServlet {
 		BookService service = new BookService();
 		String result = service.getBookDetail(isbn);
 		
+		System.out.println("[Book: Detail Servlet] result: " + result);		
+		
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();
 		out.print(callback + "(" + result + ")");

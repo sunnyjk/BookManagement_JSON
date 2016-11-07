@@ -50,6 +50,8 @@ public class BookAddServlet extends HttpServlet {
 		BookService service = new BookService();
 		Boolean result = service.addBook(isbn, title, date, page, price, author, trans, sup, pub, img);
 
+		System.out.println("[Book: Add Servlet] result: " + result);		
+		
 		// 3. 출력처리
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();

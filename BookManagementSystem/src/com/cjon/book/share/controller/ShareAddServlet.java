@@ -40,11 +40,11 @@ public class ShareAddServlet extends HttpServlet {
 		Boolean result = false;
 		
 		if(id != null){
-			System.out.println("share servlet ID: " + id);
 			ShareService service = new ShareService();
 			result = service.rentBook(isbn, id);
 		}
 		
+		System.out.println("[Share: Book Add Servlet] result: " + result);
 		
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();

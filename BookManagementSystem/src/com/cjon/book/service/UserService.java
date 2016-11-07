@@ -18,4 +18,9 @@ public class UserService {
 		return result;
 	}
 
+	public boolean idCheck(String id) {
+		UserDAO dao = new UserDAO();
+		return dao.select(id);
+	}
+
 }

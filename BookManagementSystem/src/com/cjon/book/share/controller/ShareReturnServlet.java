@@ -1,4 +1,4 @@
-package com.cjon.book.user.controller;
+package com.cjon.book.share.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,20 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.cjon.book.service.BookService;
-import com.cjon.book.service.UserService;
+import com.cjon.book.service.ShareService;
 
 /**
- * Servlet implementation class BookDeleteServlet
+ * Servlet implementation class ShareAddServlet
  */
-@WebServlet("/logout")
-public class UserLogoutServlet extends HttpServlet {
+@WebServlet("/returnBook")
+public class ShareReturnServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserLogoutServlet() {
+    public ShareReturnServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,22 +31,24 @@ public class UserLogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		
 		HttpSession session = request.getSession(true);
+		String id = (String) session.getAttribute("ID");
 		
+		String isbn = request.getParameter("isbn");
 		String callback = request.getParameter("callback");
-		boolean result = false;
+		Boolean result = false;
 		
-		if(session.getAttribute("ID") != null) {
-			session.invalidate();
-			result = true;
+		if(id != null){
+			ShareService service = new ShareService();
+			result = service.returnBook(isbn, id);
 		}
 		
-		System.out.println("[User: Logout Servlet] result: " + result);
-			
+		System.out.println("[Share: Book Return Servlet] result: " + result);
+		
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();
-		out.print(callback + "(" + result + ")");
+		out.println(callback + "(" + result + ")");
 		out.flush();
 		out.close();
 	}

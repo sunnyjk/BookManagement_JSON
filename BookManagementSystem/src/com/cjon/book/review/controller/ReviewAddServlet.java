@@ -39,8 +39,6 @@ public class ReviewAddServlet extends HttpServlet {
 		String callback = request.getParameter("callback");
 		boolean result = false;
 		
-		System.out.println("들어와야됨");
-		
 		if(session.getAttribute("ID") != null){
 			// 1. 입력받고
 			String isbn = request.getParameter("isbn");
@@ -48,16 +46,15 @@ public class ReviewAddServlet extends HttpServlet {
 			String comments = request.getParameter("comments");
 			String id = (String) session.getAttribute("ID");
 			
-			System.out.println("review: " + isbn + " / " + comments + "/ id: " + id);
 			
 			// 2. 로직처리
 			ReviewService service = new ReviewService();
 			result = service.addReview(isbn, title, comments, id);
 			
-		} else{
-			
-		}		
-
+		} 
+		
+		System.out.println("[Review: Add Servlet] result: " + result);		
+		
 		// 3. 출력처리
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();

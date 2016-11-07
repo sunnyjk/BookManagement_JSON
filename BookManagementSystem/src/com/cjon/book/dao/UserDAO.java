@@ -32,9 +32,7 @@ public class UserDAO {
 				DBTemplate.rollback(con);
 				System.out.println("rollback");
 			}
-				
-			System.out.println("insert(): " + result);
-			
+						
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -66,8 +64,34 @@ public class UserDAO {
 			} else{
 				result = false;
 			}
-							
-			System.out.println("loginCheck(): " + result);
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			DBTemplate.close(rs);
+			DBTemplate.close(pstmt);
+			DBTemplate.close(con);
+		}
+		
+		return result;
+	}
+
+	public boolean select(String id) {
+		Connection con = DBTemplate.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean result = true;
+		
+		try {
+			String sql = "select uid from user where uid = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				result = false;
+			}
 			
 		} catch (Exception e) {
 			System.out.println(e);

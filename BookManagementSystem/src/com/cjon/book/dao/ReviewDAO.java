@@ -38,8 +38,7 @@ public class ReviewDAO {
 				DBTemplate.rollback(con);
 				System.out.println("rollback");
 			}
-				
-			System.out.println("insert(): " + result);
+			
 			
 		} catch (Exception e) {
 			System.out.println(e);
@@ -58,7 +57,6 @@ public class ReviewDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String result = null;
-		System.out.println("ReviewDAO: " + keyword);
 		
 		try {
 			String sql = "select bisbn, btitle, comments, uid, date from review "
@@ -78,7 +76,6 @@ public class ReviewDAO {
 				obj.put("id", rs.getString("uid"));
 				obj.put("date", rs.getString("date"));
 				arr.add(obj);
-				System.out.println("Add obj");
 			}
 			result = arr.toJSONString();
 		} catch (Exception e) {
@@ -97,7 +94,6 @@ public class ReviewDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String result = null;
-		System.out.println("ReviewDAO: " + isbn);
 		
 		try {
 			String sql = "select bisbn, btitle, comments, uid, date from review "

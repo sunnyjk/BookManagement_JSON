@@ -39,7 +39,8 @@ public class ReviewShowServlet2 extends HttpServlet {
 
 		ReviewService service = new ReviewService();
 		String result = service.showReviewByIsbn(isbn);
-		System.out.println("Review Servlet: " + result);
+		
+		System.out.println("[Review: Show By ISBN Servlet] result: " + result);		
 
 		// 3. 출력처리
 		response.setContentType("text/plain; charset=utf8");

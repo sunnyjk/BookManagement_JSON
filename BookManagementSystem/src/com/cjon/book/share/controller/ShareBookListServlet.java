@@ -35,10 +35,10 @@ public class ShareBookListServlet extends HttpServlet {
 		String keyword = request.getParameter("keyword"); // 책에 대한 keyword를 받는부분
 		String callback = request.getParameter("callback"); // JSONP처리를 위해서 사용
 		
-		System.out.println("share servlet: " + keyword);
-		
 		ShareService service = new ShareService();		
 		String result = service.getList(keyword);
+		
+		System.out.println("[Share: Book List Servlet] result: " + result);
 
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();

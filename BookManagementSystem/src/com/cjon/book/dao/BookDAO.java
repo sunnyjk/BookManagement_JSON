@@ -23,7 +23,7 @@ public class BookDAO {
 		ResultSet rs = null;
 		String result = null;
 		try {
-			String sql = "select bisbn, bimgbase64, btitle, bauthor, bprice " + "from book where btitle like ?";
+			String sql = "select bisbn, bimgbase64, btitle, bauthor, bprice " + "from book2 where btitle like ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%" + keyword + "%");
 			rs = pstmt.executeQuery();
@@ -54,9 +54,8 @@ public class BookDAO {
 
 		String result = null;
 		try {
-			System.out.println(isbn);
-			System.out.println(price);
-			String sql = "update book set btitle=?, bauthor=?, bprice=? where bisbn=?";
+
+			String sql = "update book2 set btitle=?, bauthor=?, bprice=? where bisbn=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, title);
 			pstmt.setString(2, author);
@@ -69,14 +68,10 @@ public class BookDAO {
 				// 정상처리이기 때문에 commit
 				DBTemplate.commit(con);
 
-				System.out.println("count 후 commit!!");
-				String sql2 = "select bisbn, bimgbase64, btitle, bauthor, bprice " + "from book where bisbn = ?";
+				String sql2 = "select bisbn, bimgbase64, btitle, bauthor, bprice " + "from book2 where bisbn = ?";
 				PreparedStatement pstmt2 = con.prepareStatement(sql2);
 				pstmt2.setString(1, isbn);
 				ResultSet rs = pstmt2.executeQuery();
-
-				System.out.println("sql finished");
-				System.out.println(rs);
 
 				rs.next();
 
@@ -88,7 +83,6 @@ public class BookDAO {
 				obj.put("price", rs.getString("bprice"));
 
 				result = obj.toJSONString();
-				System.out.println(result);
 
 				DBTemplate.close(rs);
 				DBTemplate.close(pstmt2);
@@ -115,7 +109,7 @@ public class BookDAO {
 		String result = null;
 		try {
 			String sql = "select bisbn, bdate, bpage, bsupplement, bpublisher " 
-					+ "from book where bisbn = ?";
+					+ "from book2 where bisbn = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, isbn);
 			rs = pstmt.executeQuery();
@@ -130,7 +124,6 @@ public class BookDAO {
 			obj.put("publisher", rs.getString("bpublisher"));
 
 			result = obj.toJSONString();
-			System.out.println("detail(): " + result);
 			
 		} catch (Exception e) {
 			System.out.println(e);
@@ -145,21 +138,19 @@ public class BookDAO {
 
 	public Boolean insert(String isbn, String title, String date, String page, String price, String author,
 			String trans, String sup, String pub, String img) {
-		System.out.println("page: /" + page.trim());
+		
 		if(date.trim() == "") date = "2016-11-03";
 		if(page.trim() == "") page = "300";
 		if(trans.trim() == "") trans = "없음";
 		if(sup.trim() == "") sup = "없음";
 		if(pub.trim() == "") pub = "써니미디어(주)";
 		if(img.trim() == "") img = "";
-		
-		System.out.println("insert 들어옴!");
-		System.out.println(isbn + title + date+ page+ price+ author+ trans+ sup+ pub+ img);
+
 		Connection con = DBTemplate.getConnection();
 		PreparedStatement pstmt = null;
 		Boolean result = false;
 		try {
-			String sql = "insert into book (bisbn, btitle, bdate, bpage, bprice, bauthor, btranslator, "
+			String sql = "insert into book2 (bisbn, btitle, bdate, bpage, bprice, bauthor, btranslator, "
 					+ "bsupplement, bpublisher, bimgbase64)"
 					+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
@@ -180,14 +171,12 @@ public class BookDAO {
 				result = true;
 				// 정상처리이기 때문에 commit
 				DBTemplate.commit(con);	
-				System.out.println("Book Added!! : " + title);
 
 			} else {
 				DBTemplate.rollback(con);
 				System.out.println("rollback");
 			}
 				
-			System.out.println("insert(): " + result);
 			
 		} catch (Exception e) {
 			System.out.println(e);
@@ -206,7 +195,7 @@ public class BookDAO {
 		PreparedStatement pstmt = null;
 		Boolean result = false;
 		try {
-			String sql = "delete from book where bisbn = ?";
+			String sql = "delete from book2 where bisbn = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, isbn);
 			
@@ -222,7 +211,6 @@ public class BookDAO {
 				System.out.println("rollback");
 			}
 				
-			System.out.println("delete(): " + result);
 			
 		} catch (Exception e) {
 			System.out.println(e);

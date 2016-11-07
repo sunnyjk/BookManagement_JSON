@@ -14,4 +14,14 @@ public class ShareService {
 		return dao.updateStatus(isbn, id);
 	}
 
+	public String getListById(String id) {
+		ShareDAO dao = new ShareDAO();
+		return dao.selectById(id);
+	}
+
+	public Boolean returnBook(String isbn, String id) {
+		ShareDAO dao = new ShareDAO();
+		return dao.updateReturn(isbn, id);
+	}
+
 }

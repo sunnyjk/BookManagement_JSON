@@ -41,6 +41,9 @@ public class BookListServlet extends HttpServlet {
 		// 로직처리를 하기 위해서 일단 Service객체를 하나 생성합니다.
 		BookService service = new BookService();		
 		String result = service.getList(keyword);
+		
+		System.out.println("[Book: List Servlet] result: " + result);		
+		
 		// 결과로 가져올건..DB 처리한 후 나온 책에 대한 JSON data		
 		// 3. 출력처리
 		response.setContentType("text/plain; charset=utf8");

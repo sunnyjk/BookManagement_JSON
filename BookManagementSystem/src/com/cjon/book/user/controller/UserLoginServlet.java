@@ -38,8 +38,6 @@ public class UserLoginServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		
-		System.out.println("로그인 서블릿 들어옴");
-		
 		UserService service = new UserService();
 		boolean result = service.login(id, pw);
 		
@@ -49,6 +47,8 @@ public class UserLoginServlet extends HttpServlet {
 			session.setAttribute("ID", id);
 			System.out.println("session generated!");
 		}
+		
+		System.out.println("[User: Login Servlet] result: " + result);
 		
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();

@@ -37,20 +37,18 @@ public class UserJoinServlet extends HttpServlet {
 		String pw = request.getParameter("pw");
 		String name = request.getParameter("name");
 		
-		System.out.println("Join Servlet 들어옴!");
-		
 		boolean result = false;
+		UserService service = new UserService();
 		
 		if(pw != null && name != null){
-		
-			System.out.println("회원가입 진행하기");
-		/*	UserService service = new UserService();
 			result = service.addUser(id, pw, name);
-		*/
+			System.out.println("[User: Join Servlet] result: " + result);
+		
 		} else {
-			System.out.println("UserJoinServlet: dao에 가서 ID값 중복되는지 확인하기");
-			result = true;
+			result = service.idCheck(id);
+			System.out.println("[User: ID check Servlet] result: " + result);
 		}
+				
 		
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();

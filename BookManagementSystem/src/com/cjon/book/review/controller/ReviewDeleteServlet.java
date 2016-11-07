@@ -51,6 +51,8 @@ public class ReviewDeleteServlet extends HttpServlet {
 		} else {
 			result = false;
 		}
+		
+		System.out.println("[Review: Delete Servlet] result: " + result);		
 
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();
